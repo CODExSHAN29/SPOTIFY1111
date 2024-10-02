@@ -146,8 +146,14 @@ async function main() {
     document.querySelector(".seekbar").addEventListener("click", e => {
         let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
         document.querySelector(".circle").style.left = percent + "%";
-        currentSong.currentTime = ((currentSong.duration) * percent) / 100
-    })
+    
+        if (currentSong && currentSong.duration > 0) {
+            currentSong.currentTime = (currentSong.duration * percent) / 100;
+        } else {
+            console.error("Invalid song or song duration.");
+        }
+    });
+    
 
     // Add an event listener for hamburger
     document.querySelector(".hamburger").addEventListener("click", () => {
